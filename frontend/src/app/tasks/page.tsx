@@ -17,6 +17,7 @@ export default function Tasks() {
   const [status, setStatus] = useState<'completed' | 'not completed'>('not completed');
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
   const [validationErrors, setValidationErrors] = useState<any>({});
+  const [successMessage, setSuccessMessage] = useState('');
 
   const getAuthHeader = (): Record<string, string> => {
     const userData = localStorage.getItem('user');
@@ -55,6 +56,7 @@ export default function Tasks() {
     const data = await response.json();
     if (response.ok) {
       setTasks([...tasks, data]);
+      setSuccessMessage('Task added successfully!');
       resetForm();
     } else {
       setValidationErrors(data.errors);
@@ -99,6 +101,7 @@ export default function Tasks() {
     if (response.ok) {
       const updatedTasks = tasks.map(task => task._id === id ? data : task);
       setTasks(updatedTasks);
+      setSuccessMessage('Task updated successfully!');
       resetForm();
     } else {
       setValidationErrors(data.errors);
@@ -117,6 +120,14 @@ export default function Tasks() {
   useEffect(() => {
     fetchTasks();
   }, []);
+
+  //For success message
+  useEffect(() => {
+    if (successMessage) {
+        const timer = setTimeout(() => setSuccessMessage(''), 3000); // clears after 3 seconds
+        return () => clearTimeout(timer);
+    }
+  }, [successMessage]);
 
   return (
     <div>
@@ -148,20 +159,25 @@ export default function Tasks() {
           onChange={(e) => setStatus(e.target.value as 'completed' | 'not completed')}
           className="border-2 rounded-md p-2 w-full"
         >
-          <option value="incomplete">Not Completed</option>
-          <option value="complete">Completed</option>
+          <option value="incomplete" className="text-black">Not Completed</option>
+          <option value="complete" className="text-black">Completed</option>
         </select>
 
         {editingTaskId ? (
-          <button className="bg-blue-500 text-white rounded-md p-2" onClick={() => updateTasks(editingTaskId)}>
+          <button className="bg-blue-500 text-white rounded-md p-2 cursor-pointer" onClick={() => updateTasks(editingTaskId)}>
             Update Task
           </button>
         ) : (
-          <button className="bg-green-500 text-white rounded-md p-2" onClick={addTasks}>
+          <button className="bg-green-500 text-white rounded-md p-2 cursor-pointer" onClick={addTasks}>
             Add Task
           </button>
         )}
       </div>
+      {successMessage && (
+        <div className="bg-green-200 text-green-800 p-2 rounded mb-4">
+            {successMessage}
+        </div>
+      )}
 
       <ul className="space-y-4">
         {tasks.map((task) => (
@@ -170,8 +186,8 @@ export default function Tasks() {
               <strong>{task.title}</strong> - {task.category} - {task.status}
             </span>
             <div className="space-x-2">
-              <button onClick={() => editTasks(task._id)} className="bg-yellow-500 text-white rounded-md p-2">Edit</button>
-              <button onClick={() => deleteTasks(task._id)} className="bg-red-500 text-white rounded-md p-2">Delete</button>
+              <button onClick={() => editTasks(task._id)} className="bg-yellow-500 text-white rounded-md p-2 cursor-pointer">Edit</button>
+              <button onClick={() => deleteTasks(task._id)} className="bg-red-500 text-white rounded-md p-2 cursor-pointer">Delete</button>
             </div>
           </li>
         ))}
