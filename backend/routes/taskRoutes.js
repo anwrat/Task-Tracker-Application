@@ -9,4 +9,7 @@ router.post('/create',authenticateToken, taskController.createatask);
 // Get all tasks
 router.get('/getall',authenticateToken, taskController.getalltasks);
 
+//Delete a task
+router.delete('/:id', authenticateToken, taskController.deletetask);
+
 module.exports = router;
