@@ -159,8 +159,8 @@ export default function Tasks() {
           onChange={(e) => setStatus(e.target.value as 'completed' | 'not completed')}
           className="border-2 rounded-md p-2 w-full"
         >
-          <option value="incomplete" className="text-black">Not Completed</option>
-          <option value="complete" className="text-black">Completed</option>
+          <option value="incompleted" className="text-black">Not Completed</option>
+          <option value="completed" className="text-black">Completed</option>
         </select>
 
         {editingTaskId ? (
@@ -179,12 +179,23 @@ export default function Tasks() {
         </div>
       )}
 
-      <ul className="space-y-4">
+    <ul className="space-y-4">
         {tasks.map((task) => (
           <li key={task._id} className="flex justify-between items-center bg-gray-100 p-4 rounded-md text-black">
-            <span>
-              <strong>{task.title}</strong> - {task.category} - {task.status}
-            </span>
+            <div className="space-y-1">
+              <div className="font-bold text-lg">{task.title}</div>
+              <div className="text-sm text-gray-700">{task.description}</div>
+              <div className="flex gap-2 mt-1">
+                <span className="bg-gray-300 text-gray-800 text-xs font-semibold px-2 py-1 rounded-full">
+                  {task.category}
+                </span>
+                <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
+                  task.status === 'completed' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+                }`}>
+                  {task.status}
+                </span>
+              </div>
+            </div>
             <div className="space-x-2">
               <button onClick={() => editTasks(task._id)} className="bg-yellow-500 text-white rounded-md p-2 cursor-pointer">Edit</button>
               <button onClick={() => deleteTasks(task._id)} className="bg-red-500 text-white rounded-md p-2 cursor-pointer">Delete</button>
