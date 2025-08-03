@@ -12,4 +12,7 @@ router.get('/getall',authenticateToken, taskController.getalltasks);
 //Delete a task
 router.delete('/:id', authenticateToken, taskController.deletetask);
 
+//Update a task
+router.put('/:id', authenticateToken, taskController.updatetask);
+
 module.exports = router;

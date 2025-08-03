@@ -49,3 +49,25 @@ exports.deletetask = async (req, res) => {
   }
 };
 
+exports.updatetask = async (req, res) => {
+  try {
+    const taskId = req.params.id;
+    const { title, description, category, status } = req.body;
+
+    const updatedTask = await Task.findByIdAndUpdate(
+      taskId,
+      { title, description, category, status },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedTask) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+
+    res.status(200).json({ message: 'Task updated successfully', updatedTask });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error updating the task' });
+  }
+};
+
