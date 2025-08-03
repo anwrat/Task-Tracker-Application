@@ -43,15 +43,13 @@ export default function Home() {
 
       if (response.ok) {
         if (isLogin) {
-          // Login successful: store user and redirect
           localStorage.setItem('user', JSON.stringify(data));
           localStorage.setItem('isLoggedIn', 'true');
           router.push('/tasks');
         } else {
-          // Signup successful: show message and switch to login
           setSuccessMessage('Signup successful! Please log in.');
           setIsLogin(true);
-          // Optional: clear inputs after signup
+          // clear inputs after signup
           setusername('');
           setEmail('');
           setPassword('');

@@ -15,7 +15,12 @@ const connectdb = require('./config/db')
 connectdb()
 
 const authRoutes = require('./routes/authRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 
+//For login and register
 app.use('/auth',authRoutes);
+
+//For tasks
+app.use('/tasks',taskRoutes);
 
 app.listen(port, () => console.log(`Server running on port ${port}`))
