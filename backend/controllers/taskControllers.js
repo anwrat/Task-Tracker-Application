@@ -25,7 +25,7 @@ exports.createatask = async (req, res) => {
       status,
     });
     const savedTask = await newTask.save();
-    res.status(201).json({message:'Success',savedTask});
+    res.status(201).json(savedTask);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Error in creating a new task' });
@@ -64,7 +64,7 @@ exports.updatetask = async (req, res) => {
       return res.status(404).json({ message: 'Task not found' });
     }
 
-    res.status(200).json({ message: 'Task updated successfully', updatedTask });
+    res.status(200).json(updatedTask);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Error updating the task' });
