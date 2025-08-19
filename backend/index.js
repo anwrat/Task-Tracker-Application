@@ -4,10 +4,10 @@ const app = express();
 const cors = require('cors');
 app.use(express.json());
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.use(cors({
-  origin: 'http://localhost:3001', 
+  origin: 'http://localhost:3000', 
   credentials: true,               
 }));
 

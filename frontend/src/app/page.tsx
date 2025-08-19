@@ -16,7 +16,7 @@ export default function Home() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const API_BASE_URL = 'http://localhost:3000/auth';
+  const API_BASE_URL = 'http://localhost:3001/auth';
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

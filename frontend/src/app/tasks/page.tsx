@@ -32,7 +32,7 @@ export default function Tasks() {
   };
 
   const fetchTasks = async () => {
-    const response = await fetch("http://localhost:3000/tasks/getall", {
+    const response = await fetch("http://localhost:3001/tasks/getall", {
       headers: {
         ...getAuthHeader(),
         'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export default function Tasks() {
   };
 
   const addTasks = async () => {
-    const response = await fetch("http://localhost:3000/tasks/create", {
+    const response = await fetch("http://localhost:3001/tasks/create", {
       method: 'POST',
       headers: {
         ...getAuthHeader(),
@@ -64,7 +64,7 @@ export default function Tasks() {
   };
 
   const deleteTasks = async (id: string) => {
-    const response = await fetch(`http://localhost:3000/tasks/${id}`, {
+    const response = await fetch(`http://localhost:3001/tasks/${id}`, {
       method: 'DELETE',
       headers: {
         ...getAuthHeader(),
@@ -88,7 +88,7 @@ export default function Tasks() {
   };
 
   const updateTasks = async (id: string) => {
-    const response = await fetch(`http://localhost:3000/tasks/${id}`, {
+    const response = await fetch(`http://localhost:3001/tasks/${id}`, {
       method: 'PUT',
       headers: {
         ...getAuthHeader(),
